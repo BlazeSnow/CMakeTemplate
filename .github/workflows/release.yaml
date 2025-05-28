@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Clang
-        uses: egor-tensin/setup-clang@v1
+        run: choco install llvm -y
 
       - name: Setup CMake
         uses: lukka/get-cmake@latest
@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-artifact
-          path: build/${{ env.PROJECTNAME_WINDOWS }}
+          path: build/${{ env.PROJECTNAME }}.exe
 
   build_macos:
     runs-on: macos-latest
@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: macos-artifact
-          path: build/${{ env.PROJECTNAME_MACOS }}
+          path: build/${{ env.PROJECTNAME }}
 
   build_linux:
     runs-on: ubuntu-latest
@@ -73,7 +73,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Clang
-        uses: egor-tensin/setup-clang@v1
+        run: sudo apt-get update && sudo apt install -y clang llvm
 
       - name: Setup CMake
         uses: lukka/get-cmake@latest
@@ -88,7 +88,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-artifact
-          path: build/${{ env.PROJECTNAME_LINUX }}
+          path: build/${{ env.PROJECTNAME }}
 
   release:
     needs:
@@ -103,17 +103,26 @@ jobs:
           name: windows-artifact
           path: .
 
+      - name: mv windows
+        run: mv ${{ env.PROJECTNAME }}.exe ${{ env.PROJECTNAME_WINDOWS }}
+
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: macos-artifact
           path: .
 
+      - name: mv macos
+        run: mv ${{ env.PROJECTNAME }} ${{ env.PROJECTNAME_MACOS }}
+
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: linux-artifact
           path: .
+
+      - name: mv linux
+        run: mv ${{ env.PROJECTNAME }} ${{ env.PROJECTNAME_LINUX }}
 
       - uses: ncipollo/release-action@v1
         with:
