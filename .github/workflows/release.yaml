@@ -27,6 +27,8 @@ jobs:
 
       - name: Setup Clang
         uses: KyleMayes/install-llvm-action@v2
+        with:
+          version: "latest"
 
       - name: Setup CMake
         uses: lukka/get-cmake@latest
