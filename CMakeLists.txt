@@ -8,4 +8,8 @@ set(CMAKE_CXX_FLAGS "-static")
 
 include_directories(/src)
 
-add_executable(PROJECTNAME main.cpp src/filesystem.cpp)
+add_executable(PROJECTNAME main.cpp
+        src/filesystem.cpp
+        src/filesystem.h
+        src/chcp.cpp
+        src/chcp.h)
