@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_FLAGS "-static")
 
-add_executable(PROJECTNAME main.cpp)
+include_directories(/src)
+
+add_executable(PROJECTNAME main.cpp src/filesystem.cpp)
