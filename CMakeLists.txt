@@ -10,6 +10,6 @@ include_directories(/src)
 
 add_executable(PROJECTNAME main.cpp
         src/filesystem.cpp
-        src/filesystem.h
+        include/filesystem.h
         src/chcp.cpp
-        src/chcp.h)
+        include/chcp.h)

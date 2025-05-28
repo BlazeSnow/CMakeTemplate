@@ -1,7 +1,7 @@
 #include <filesystem>
 #include <iostream>
-#include "src/filesystem.h"
-#include "src/chcp.h"
+#include "include/filesystem.h"
+#include "include/chcp.h"
 
 using namespace std;
 
