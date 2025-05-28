@@ -31,7 +31,7 @@ jobs:
       - name: Setup CMake
         uses: lukka/get-cmake@latest
 
-      - name: CMke Setting
+      - name: CMake Setting
         run: cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -B build
 
       - name: Compile with Clang
@@ -53,7 +53,7 @@ jobs:
       - name: Setup CMake
         uses: lukka/get-cmake@latest
 
-      - name: CMke Setting
+      - name: CMake Setting
         run: cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -B build
 
       - name: Compile with Clang
