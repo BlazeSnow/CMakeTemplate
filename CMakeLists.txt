@@ -4,8 +4,9 @@ project(PROJECTNAME LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_FLAGS "-static")
-set(CMAKE_CXX_FLAGS_RELEASE "-O2 -static")
+if (NOT APPLE)
+    set(CMAKE_CXX_FLAGS "-static")
+endif ()
 
 include_directories(/include)
 
