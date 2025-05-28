@@ -10,15 +10,15 @@ on:
 
 env:
   PROJECTNAME: PROJECTNAME
-  PROGRAMNAME_WINDOWS: PROJECTNAME_Windows.exe
-  PROGRAMNAME_MACOS: PROGRAMNAME_MacOS
-  PROGRAMNAME_LINUX: PROGRAMNAME_Linux
+  PROJECTNAME_WINDOWS: PROJECTNAME-Windows.exe
+  PROJECTNAME_MACOS: PROJECTNAME-MacOS
+  PROJECTNAME_LINUX: PROJECTNAME-Linux
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  build_windows:
     runs-on: windows-latest
 
     steps:
@@ -40,19 +40,85 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.PROJECTNAME }}
-          path: build/${{ env.PROJECTNAME }}.exe
+          name: windows-artifact
+          path: build/${{ env.PROJECTNAME_WINDOWS }}
+
+  build_macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Clang
+        uses: egor-tensin/setup-clang@v1
+
+      - name: Setup CMake
+        uses: lukka/get-cmake@latest
+
+      - name: CMke Setting
+        run: cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -B build
+
+      - name: Compile with Clang
+        run: cmake --build build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-artifact
+          path: build/${{ env.PROJECTNAME_MACOS }}
+
+  build_linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Clang
+        uses: egor-tensin/setup-clang@v1
+
+      - name: Setup CMake
+        uses: lukka/get-cmake@latest
+
+      - name: CMake Setting
+        run: cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -B build
+
+      - name: Compile with Clang
+        run: cmake --build build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-artifact
+          path: build/${{ env.PROJECTNAME_LINUX }}
 
   release:
-    needs: build
+    needs:
+      - build_windows
+      - build_macos
+      - build_linux
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.PROJECTNAME }}
+          name: windows-artifact
+          path: .
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-artifact
+          path: .
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-artifact
+          path: .
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ env.PROJECTNAME }}.exe"
+          artifacts: "${{ env.PROJECTNAME_WINDOWS }},${{ env.PROJECTNAME_MACOS }},${{ env.PROJECTNAME_LINUX }}"
           tag: ${{ inputs.tag }}
