@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.PROJECTNAME }}
-          path: ./${{ env.PROJECTNAME }}.exe
+          path: build/${{ env.PROJECTNAME }}.exe
 
   release:
     needs: build
