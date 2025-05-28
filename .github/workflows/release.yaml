@@ -25,11 +25,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Clang
-        run: choco install llvm -y
+      - name: Install Environment
+        run: choco install llvm cmake -y
+
+      - name: CMke Setting
+        run: cmake -G "Ninja" \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_C_COMPILER=clang \
+          -DCMAKE_CXX_COMPILER=clang++ \
+          -B build
 
       - name: Compile with Clang
-        run: clang.exe -O2 -DNDEBUG -static -std=c++23 main.cpp -I include -o ${{ env.PROJECTNAME }}.exe
+        run: cmake --build build
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
