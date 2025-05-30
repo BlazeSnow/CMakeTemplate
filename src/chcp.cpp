@@ -4,8 +4,7 @@
 #include <string>
 
 void example1() {
-    char *ret = setlocale(LC_ALL, "");
-    printf("当前locale: %s\n", ret);
+    setlocale(LC_ALL, "");
 
     int a = 10;
     double b = 3.14;
@@ -14,8 +13,8 @@ void example1() {
     wchar_t c = L'嗨';
     wprintf(L"c = %lc\n", c);
 
-    std::wstring str = L"你好！";
-    wprintf(L"str = %ls\n", str.c_str());
+    const wchar_t *str = L"你好！";
+    wprintf(L"str = %ls\n", str);
 
     wprintf(L"输入宽字符：");
     wchar_t d;

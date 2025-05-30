@@ -4,5 +4,5 @@
 
 void cin_ignore() {
     int ch;
-    while ((ch = getchar()) != '\n' && ch != EOF);
+    while ((ch = getwchar()) != '\n' && ch != EOF);
 }
