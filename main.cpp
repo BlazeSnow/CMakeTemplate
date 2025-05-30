@@ -9,6 +9,7 @@ int main() {
     printf("Hello world!\n");
     example1();
     example2();
-    system("pause");
+    printf("按下任意键以继续......");
+    getchar();
     return 0;
 }
