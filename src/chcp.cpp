@@ -4,7 +4,8 @@
 #include <string>
 
 void example1() {
-    setlocale(LC_ALL, "");
+    char *ret = setlocale(LC_ALL, "");
+    printf("当前locale: %s\n", ret);
 
     int a = 10;
     double b = 3.14;
