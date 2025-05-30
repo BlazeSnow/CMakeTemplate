@@ -1,25 +1,32 @@
 #include "../include/chcp.h"
-#include "../include/cin_ignore.h"
-#include <locale>
+#include <iostream>
 #include <string>
+#include <locale>
+#include <cstdlib>
+
+using namespace std;
 
 void example1() {
-    setlocale(LC_ALL, "");
+#ifdef WIN32
+    system("chcp 65001");
+    std::locale::global(std::locale(""));
+    wcout.imbue(std::locale());
+#endif
 
     int a = 10;
     double b = 3.14;
-    wprintf(L"a = %d\nb = %lf\n", a, b);
+    cout << "a = " << a << endl;
+    cout << "b = " << b << endl;
 
-    wchar_t c = L'嗨';
-    wprintf(L"c = %lc\n", c);
+    char c = '嗨';
+    cout << "c = " << c << endl;
 
-    const wchar_t *str = L"你好！";
-    wprintf(L"str = %ls\n", str);
+    char *str = "你好！";
+    cout << "str = " << str << endl;
 
-    wprintf(L"输入宽字符：");
+    wcout << L"输入宽字符：" << endl;
     wchar_t d;
-    wscanf(L"%lc", &d);
-    cin_ignore();
-
-    wprintf(L"d = %lc\n", d);
+    wcin >> d;
+    wcin.ignore();
+    wcout << L"d = " << d << endl;
 }
