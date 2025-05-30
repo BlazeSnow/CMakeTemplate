@@ -1,5 +1,13 @@
 # CMakeTemplate
 
+## v2025.5.30.2
+
+2025年5月30日09点53分
+
+- chcp的跨平台
+- wchar和wstring的应用
+- cin_ignore
+
 ## v2025.5.30.1
 
 2025年5月30日09点30分
