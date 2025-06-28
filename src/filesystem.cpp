@@ -5,10 +5,9 @@
 using namespace std;
 
 const filesystem::path CurrentPath = filesystem::current_path();
-const string CurrentPathString = CurrentPath.string();
 
 int example2() {
-    printf("目录为：%s\n", CurrentPathString.c_str());
-    fprintf(stderr, "目录为：%s\n", CurrentPathString.c_str());
+    wcout << L"目录为：" << CurrentPath << endl;
+    wcerr << L"目录为：" << CurrentPath << endl;
     return 0;
 }

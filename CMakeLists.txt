@@ -15,5 +15,4 @@ add_executable(PROJECTNAME main.cpp
         include/filesystem.h
         src/chcp.cpp
         include/chcp.h
-        src/cin_ignore.cpp
-        include/cin_ignore.h)
+)
